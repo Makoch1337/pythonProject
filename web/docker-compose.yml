@@ -18,7 +18,7 @@ services:
     image: postgres:17.2
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: admin
       POSTGRES_DB: flaskdb
     ports:
       - "5432:5432"
