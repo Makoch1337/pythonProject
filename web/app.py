@@ -8,7 +8,7 @@ app = Flask(__name__)
 db_host = os.getenv("DATABASE_HOST", "localhost")
 db_port = os.getenv("DATABASE_PORT", "5432")
 db_user = os.getenv("DATABASE_USER", "postgres")
-db_password = os.getenv("DATABASE_PASSWORD", "postgres")
+db_password = os.getenv("DATABASE_PASSWORD", "admin")
 db_name = os.getenv("DATABASE_NAME", "flaskdb")
 
 # Подключение к базе данных
