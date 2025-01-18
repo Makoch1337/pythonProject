@@ -1,29 +1,30 @@
-from flask import Flask, render_template, request, jsonify
+import os
 import psycopg2
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# Подключение к базе данных PostgreSQL
+# Получаем параметры подключения из переменных окружения
+db_host = os.getenv("DATABASE_HOST", "localhost")
+db_port = os.getenv("DATABASE_PORT", "5432")
+db_user = os.getenv("DATABASE_USER", "postgres")
+db_password = os.getenv("DATABASE_PASSWORD", "postgres")
+db_name = os.getenv("DATABASE_NAME", "flaskdb")
+
+# Подключение к базе данных
 conn = psycopg2.connect(
-    host="db",
-    database="mydatabase",
-    user="admin",
-    password="admin"
+    host=db_host,
+    port=db_port,
+    user=db_user,
+    password=db_password,
+    dbname=db_name
 )
-cursor = conn.cursor()
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/submit', methods=['POST'])
-def submit():
+@app.route('/chat', methods=['POST'])
+def chat():
     data = request.get_json()
-    name = data.get('name')
-    message = data.get('message')
-    cursor.execute("INSERT INTO users (name, message) VALUES (%s, %s)", (name, message))
-    conn.commit()
-    return jsonify({"status": "success"})
+    message = data.get('message', '')
+    return jsonify({"response": f"Your message: {message}"})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
