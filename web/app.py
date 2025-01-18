@@ -13,11 +13,11 @@ db_name = os.getenv("DATABASE_NAME", "flaskdb")
 
 # Подключение к базе данных
 conn = psycopg2.connect(
-    host=db_host,
-    port=db_port,
+    host="db",
+    port=5432,
     user="postgres",
     password="admin",
-    dbname=db_name
+    dbname="flaskdb"
 )
 
 @app.route('/chat', methods=['POST'])
