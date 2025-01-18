@@ -15,8 +15,8 @@ db_name = os.getenv("DATABASE_NAME", "flaskdb")
 conn = psycopg2.connect(
     host=db_host,
     port=db_port,
-    user=db_user,
-    password=db_password,
+    user="postgres",
+    password="admin",
     dbname=db_name
 )
 
